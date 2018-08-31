@@ -1,0 +1,11 @@
+{
+  "name": "",
+  "version": "",
+  "description": "",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
