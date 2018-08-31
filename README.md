@@ -3,7 +3,7 @@ Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and
 
 This assignment aims to introduce you to the concepts and practice involved in creating a prototype (i.e. not deployment ready) two-tiered web application.
 
-The baseline aims of this assignment involve creating an application that demonstrates the use of several specific pieces of HTML, CSS, JavaScript, and Node.js functionality.
+The baseline aims of this assignment involve creating an application that demonstrates the use of several specific pieces of HTML, CSS, JavaScript, and Node.js functionality.
 Another aim of this assignment is to establish creative boundaries in which you and your team can explore designing, implementing, and evaluating usable, useful, novel, and technically efficient web applications.
 
 Baseline Requirements
@@ -38,10 +38,10 @@ CSS:
     - Class selectors
     - Pesudo-class selectors
 - CSS positioning and sizing of the primary visual elements in the application:
-      - CSS to cause at least one element to be horizontally centered on the page
-      - CSS to cause at least one pair of elements to appear side-by-side
-- CSS defined in a maintainable, readable form
-      - Clarification: this does not necessarily mean that you must use external sheets, even though external sheets is a common approach for achieving readbility and maintainability
+    - CSS to cause at least one element to be horizontally centered on the page
+    - CSS to cause at least one pair of elements to appear side-by-side
+    - CSS defined in a maintainable, readable form
+        - Clarification: this does not necessarily mean that you must use external sheets, even though external sheets is a common approach for achieving readbility and maintainability
 
 JavaScript:
 - Front-end JavaScript is *not* required for this project, but it is an option available to you
