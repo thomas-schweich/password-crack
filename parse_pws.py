@@ -1,4 +1,6 @@
 import os
+import sys
+from collections import defaultdict
 
 if not os.path.exists('pwlists'):
     os.makedirs('pwlists')
@@ -48,7 +50,6 @@ def decompose(password):
     result = []
     while i < len(password):
         c = password[i]
-        print('c: %s, i: %d' % (c, i))
         seg = ''
         des = ''
         if c.isalpha():
@@ -63,10 +64,13 @@ def decompose(password):
         i += len(seg)
         if len(seg) <= 10:
             desnum = des + str(len(seg))
-            print('Designation: %s\nSegment: %s' % (desnum, seg))
             result += [[desnum, seg]]
-    print(result)
     return result
+
+
+def sequence(decomp_pw):
+    """ Generates the sequence string for the given list of decomposed password segments """
+    return ''.join([s[0] for s in decomp_pw])
 
 if __name__ == '__main__':
     identifiers = ('a', 'n', 's')
@@ -74,13 +78,20 @@ if __name__ == '__main__':
 
     files = {h: open('pwlists/%s.pwl' % h, 'w') for h in headers}
 
+    sequences = defaultdict(int)
+
     with open('pwList.txt', 'r') as pwList:
         for pw in pwList:
-            print(pw)
             decomp = decompose(pw.strip())
+            sequences[sequence(decomp)] += 1
             for seq in decomp:
                 files[seq[0]].write(seq[1] + '\n')
+    
+    with open('pwlists/sequences', 'w') as seqfile:
+        s = sorted(sequences.items(), key=lambda kv: kv[1], reverse=True)
+        for line in s:
+            seqfile.write(line[0] + '\n')
 
-    for h in files.items():
+    for h in files.values():
         h.close()
 
