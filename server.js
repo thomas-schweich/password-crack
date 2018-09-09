@@ -21,7 +21,7 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
 });
 
 function addSequences(seqobj) {
-    client.query('SELECT pat FROM sequences ORDER BY frq DESC', (err,res) => {
+    client.query('SELECT pat FROM sequences ORDER BY frq DESC;', (err,res) => {
         if (err) throw err;
         seqobj.SEQUENCES = res.rows
         client.end();
