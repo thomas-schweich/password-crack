@@ -20,6 +20,14 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
     client.end();
 });
 
+function getSequences(seqobj){
+    client.query('SELECT pat FROM sequences ORDER BY frq DESC', (err,res) => {
+        if (err) throw err;
+        seqobj.SEQUENCES = res.rows
+        client.end();
+    })
+}
+
 var server = http.createServer(function (req, res) {
     var uri = url.parse(req.url)
 
@@ -33,6 +41,12 @@ var server = http.createServer(function (req, res) {
         case '/mydata.json':
             sendJson(res, './mydata.json')
             break
+        case '/passwords.json':
+            var response;
+            addSequences(response).done(function(){
+                res.writeHead(200, { 'Content-type': 'application/json' })
+                res.end(JSON.stringify(response), 'utf-8')
+            })
         default:
             res.end('404 not found')
     }
