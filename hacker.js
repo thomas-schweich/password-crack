@@ -1,10 +1,4 @@
-var example_dict = {
-    '5c': ['hello', 'yoyoy', 'heloo'],
-    '2n': ['56', '27', '29'],
-    'PATTERNS': ['5c', '2n', '5c2n']
-}
-
-var password = ''
+var running = true
 
 function atoms(pattern) {
     var l = []
@@ -16,16 +10,17 @@ function atoms(pattern) {
     return l
 } 
 
+
 /*
 Combines the given values and attacks with them.
 Reutrns the value if the attack succeeded, null otherwise.
 */
-async function attackWithValues(values) {
+async function attackWithValues(values, password) {
     var pw = values.join('')
     console.log("Attacking with: " + pw)
     setTimeout(function() {
-        $("#output").text(pw)
-    }, 10)
+            $("#output").text(pw)
+    }, 1)
     if(md5(pw) == password) {
         return pw
     }
@@ -37,7 +32,7 @@ Runs a dictionary attack while holding the given values constant.
 Values which are not to be held constant should be null.
 Returns a string of the correct password if found, or null otherwise.
 */
-async function attackFixedAtoms(data, atoms, values) {
+async function attackFixedAtoms(data, password, atoms, values) {
     var hasAllValues = true;
     for(var i = 0; i < atoms.length; i++) {
         if(values[i] == null) {
@@ -45,10 +40,12 @@ async function attackFixedAtoms(data, atoms, values) {
             hasAllValues = false;
             if(data[atoms[i]]) {
                 for(let t of data[atoms[i]].rows) {
+                    if(!running) return null
                     console.log("Component added: " + t)
-                    values[i] = t[0];
-                    await setTimeout(function() {}, 100)
-                    var outcome = attackFixedAtoms(data, atoms, values)
+                    var newValues = values.slice()
+                    newValues[i] = t[0];
+                    await new Promise((resolve) => {setTimeout(resolve, 0)})
+                    var outcome = await attackFixedAtoms(data, password, atoms, newValues)
                     if(outcome) {
                         return outcome
                     }
@@ -57,7 +54,7 @@ async function attackFixedAtoms(data, atoms, values) {
         }
     }
     if(hasAllValues) {
-        return await attackWithValues(values)
+        return await attackWithValues(values, password)
     }
     return null
 }
@@ -65,18 +62,18 @@ async function attackFixedAtoms(data, atoms, values) {
 /*
 Attempts to crack using the given pattern
 */
-async function attemptCrack(data, pattern) {
-    return await attackFixedAtoms(data, atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
+async function attemptCrack(data, password, pattern) {
+    return await attackFixedAtoms(data, password, atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
 }
 
 /*
 Attempts to hack the password. Ruturns the password, or null if it isn't found
 */
-async function dictHack(data) {
+async function dictHack(data, password) {
     console.log(data['SEQUENCES'].toString())
     for(let p of data['SEQUENCES'].rows) {
         console.log("Using pattern: " + p)
-        var result = await attemptCrack(data, p[0])
+        var result = await attemptCrack(data, password, p[0])
         if (result) {
             return result
         }
@@ -88,25 +85,23 @@ async function dictHack(data) {
 $(document).ready(function () {
     $("#commence").click(function(e) {
         e.preventDefault()
-        password = $("#MD5").val()
+        var password = $("#MD5").val()
         if (!password) {
             password = md5($("#plainText").val())
             $("#MD5").val(password)
         }
-        $.ajax({
-            url: 'https://desolate-citadel-57120.herokuapp.com/passwords.json',
-            dataType: 'application/json',
-            complete: function(data) {
-                console.log("Got the click")
-                $("#output").text("PASSWORDS N STUFF")
-                dictHack(JSON.parse(data.responseText)).then(function(result) {
+        $.getJSON('passwords.json', function(data) {
+            console.log("Got the click")
+            $("#output").text("PASSWORDS N STUFF")
+            setTimeout(function() {
+                dictHack(data, password).then(function(result) {
                     if (result) {
                         console.log("found password: " + result)
                     } else {
                         console.log("Couldn't find password")
                     }
                 })
-            }
+            }, 0)
         })
     })
 })

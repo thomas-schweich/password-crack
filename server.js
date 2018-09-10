@@ -22,6 +22,91 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
     client.end();
 });
 
+function isLetter(char) {
+    return char.match(/[a-zA-Z]/i)
+}
+
+function isNumber(char) {
+    return char.match(/[0-9]/i)
+}
+
+function decompose(pass, idx) {
+    const originalIdx = idx;
+    while(isLetter(pass[idx])) {
+        idx++
+    }
+    if(idx > originalIdx) return pass.substring(originalIdx, idx)
+    while(isNumber(pass[idx])) {
+        idx++
+    }
+    if(idx > originalIdx) return pass.substring(originalIdx, idx)
+    while(!isLetter(pass[idx]) && !isNumber(pass[idx])) {
+        idx++
+    }
+    if(idx > originalIdx) return pass.substring(originalIdx, idx)
+    return null
+}
+
+async function insertLetters(s) {
+    const letterClient = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+    await letterClient.connect()
+    const query = {
+        text: 'INSERT INTO a' + s.length + ' VALUES ?',
+        values: [s]
+    }
+    await letterClient.query(query)
+    await letterClient.end()
+}
+
+async function insertNumbers(s) {
+    const numberClient = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+    await numberClient.connect()
+    const query = {
+        text: 'INSERT INTO n' + s.length + ' VALUES ?',
+        values: [s]
+    }
+    await numberClient.query(query)
+    await numberClient.end()
+}
+
+async function insertSpecials(s) {
+    const specialClient = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+    await specialClient.connect()
+    const query = {
+        text: 'INSERT INTO a' + s.length + ' VALUES ?',
+        values: [s]
+    }
+    await specialClient.query(query)
+    await specialClient.end()
+}
+
+async function insertPW(pass) {
+    var substrs = []
+    for(var i = 0; i < pass.length;) {
+        var sub = decompose(pass, i)
+        substrs.push(sub)
+        i += sub.length
+    }
+    for (let s of substrs) {
+        if (isLetter(s[0])) {
+            insertLetters(s)
+        } else if (isNumber(s[0])) {
+            insertNumbers(s)
+        } else {
+            insertSpecials(s)
+        }
+    }
+}
+
 async function getSequences() {
     const client2 = new Client({
         connectionString: process.env.DATABASE_URL,
@@ -96,7 +181,18 @@ var server = http.createServer(function (req, res) {
             }
             break
         default:
-            res.end('404 not found')
+            if(uri.pathname.startsWith('/insertPass/')) {
+                if(uri.pathname.length > 12 && uri.pathname.length < 22) {
+                    var password = uri.pathname.substring(12)
+                    insertPW(password).then(function () {
+                        console.log('Added password ' + password)
+                    })
+                } else {
+                    res.end('Invalid password')
+                }
+            } else {
+                res.end('404 not found')
+            }
     }
 })
 
