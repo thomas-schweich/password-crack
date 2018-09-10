@@ -5,9 +5,7 @@ var http = require('http')
 
 const { Client } = require('pg');
 
-const NodeCache = require('node-cache')
-
-const myCache = new NodeCache()
+var cachedJson = null
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -82,30 +80,20 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            myCache.get('passwords.json', function(err, value) {
-                console.log('Trying to access from cache...')
-                if(!err && value) {
-                    console.log('Cache hit')
+            if(cachedJson) {
+                console.log('Sending cached value')
+                res.writeHead(200, { 'Content-type': 'application/json' })
+                res.end(JSON.stringify(cachedJson), 'utf-8')
+            } else {
+                getAllValues().then(function (result) {
+                    console.log('Got from database')
+                    cachedJson = result
+                    console.log('Writing to res')
                     res.writeHead(200, { 'Content-type': 'application/json' })
-                    res.end(JSON.stringify(value), 'utf-8')
-                } else {
-                    console.log('Cache miss')
-                    getAllValues().then(function (result) {
-                        console.log('Got from database')
-                        myCache.set("passwords.json", result, function( err, success ) {
-                            if(!err && success) {
-                                console.log('Cache add successful')
-                            } else {
-                                console.log('Unable to add to cache')
-                            }
-                        })
-                        console.log('Writing to res')
-                        res.writeHead(200, { 'Content-type': 'application/json' })
-                        res.end(JSON.stringify(result), 'utf-8')
-                        console.log('Sent data: ' + result.toString())
-                    })
-                }
-            })
+                    res.end(JSON.stringify(result), 'utf-8')
+                    console.log('Sent data: ' + result.toString())
+                })
+            }
             break
         default:
             res.end('404 not found')
