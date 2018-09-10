@@ -40,13 +40,15 @@ async function attackFixedAtoms(data, atoms, values) {
         if(values[i] == null) {
             console.log('Got null entry, looking through ' + atoms[i].toString())
             hasAllValues = false;
-            for(let t of data[atoms[i]].rows) {
-                console.log("Component added: " + t)
-                values[i] = t[0];
-                await setTimeout(function() {}, 10)
-                var outcome = attackFixedAtoms(data, atoms, values)
-                if(outcome) {
-                    return outcome
+            if(data[atoms[i]]) {
+                for(let t of data[atoms[i]].rows) {
+                    console.log("Component added: " + t)
+                    values[i] = t[0];
+                    await setTimeout(function() {}, 10)
+                    var outcome = attackFixedAtoms(data, atoms, values)
+                    if(outcome) {
+                        return outcome
+                    }
                 }
             }
         }
