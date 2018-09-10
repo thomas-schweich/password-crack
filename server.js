@@ -57,7 +57,7 @@ var server = http.createServer(function (req, res) {
             break
         case '/passwords.json':
             console.log("err 1")
-            var response;
+            var response = {};
             console.log("err 2")
             addSequences(response)
             console.log("err 3")
