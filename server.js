@@ -29,7 +29,6 @@ function addSequences(seqobj) {
     client2.query('SELECT pat FROM patterns ORDER BY frq DESC;', (err,res) => {
         // Whats up with this
         if (err) throw err;
-        console.log(res.rows.toString())
         seqobj["SEQUENCES"] = res.rows
         client.end();
     })
@@ -54,6 +53,7 @@ var server = http.createServer(function (req, res) {
         case '/passwords.json':
             var response = {};
             addSequences(response)
+            console.log("Response sequences: " + response['SEQUENCES'].toString())
             res.writeHead(200, { 'Content-type': 'application/json' })
             res.end(JSON.stringify(response), 'utf-8')
             break
