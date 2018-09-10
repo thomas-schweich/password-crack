@@ -48,7 +48,7 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            var seqs = getSequences().then(function () {
+            getSequences().then(function (seqs) {
                 res.writeHead(200, { 'Content-type': 'application/json' })
                 console.log("--SEQUENCES--\n" + seqs.toString())
                 res.end(JSON.stringify(seqs), 'utf-8')
