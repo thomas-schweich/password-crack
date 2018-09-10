@@ -70,7 +70,7 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            getAllValues.then(function (result) {
+            getAllValues().then(function (result) {
                 res.writeHead(200, { 'Content-type': 'application/json' })
                 res.end(JSON.stringify(result), 'utf-8')
             })
