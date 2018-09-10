@@ -88,7 +88,7 @@ $(document).ready(function () {
             $("#MD5").val(password)
         }
         $.ajax({
-            url: '/passwords.json',
+            url: 'https://desolate-citadel-57120.herokuapp.com/passwords.json',
             dataType: 'application/json',
             success: function(data) {
                 example_dict = data
