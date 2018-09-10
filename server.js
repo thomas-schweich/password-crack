@@ -83,11 +83,15 @@ var server = http.createServer(function (req, res) {
             break
         case '/passwords.json':
             myCache.get('passwords.json', function(err, value) {
+                console.log('Trying to access from cache...')
                 if(!err && value) {
+                    console.log('Cache hit')
                     res.writeHead(200, { 'Content-type': 'application/json' })
                     res.end(JSON.stringify(value), 'utf-8')
                 } else {
+                    console.log('Cache miss')
                     getAllValues().then(function (result) {
+                        console.log('Got from database')
                         myCache.set("passwords.json", result, 10000)
                         res.writeHead(200, { 'Content-type': 'application/json' })
                         res.end(JSON.stringify(result), 'utf-8')
