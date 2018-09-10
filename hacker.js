@@ -82,16 +82,16 @@ function dictHack() {
 $(document).ready(function () {
     $("#commence").click(function(e) {
         e.preventDefault()
+        password = $("#MD5").val()
+        if (!password) {
+            password = md5($("#plainText").val())
+            $("#MD5").val(password)
+        }
         $.ajax({
             url: '/passwords.json',
             dataType: 'application/json',
             success: function(data) {
                 example_dict = data
-                password = $("#MD5").val()
-                if (!password) {
-                    password = md5($("#plainText").val())
-                    $("#MD5").val(password)
-                }
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
                 dictHack()
