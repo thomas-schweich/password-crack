@@ -70,7 +70,7 @@ function dictHack(data) {
     console.log(data['SEQUENCES'].toString())
     for(let p of data['SEQUENCES'].rows) {
         console.log("Using pattern: " + p)
-        var result = attemptCrack(data, p)
+        var result = attemptCrack(data, p[0])
         if (result) {
             return result
         }
