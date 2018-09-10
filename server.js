@@ -22,7 +22,7 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
 
 function addSequences(seqobj) {
     client.connect()
-    client.query('SELECT pat FROM sequences ORDER BY frq DESC;', (err,res) => {
+    client.query('SELECT pat FROM patterns ORDER BY frq DESC;', (err,res) => {
         // Whats up with this
         
         if (err) throw err;
