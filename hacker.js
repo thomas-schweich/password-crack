@@ -42,7 +42,7 @@ function attackFixedAtoms(atoms, values) {
             hasAllValues = false;
             for(let t of example_dict[atoms[i]]) {
                 console.log("Component added: " + t)
-                values[i] = t;
+                values[i] = t[0];
                 var outcome = attackFixedAtoms(atoms, values)
                 if(outcome) {
                     return outcome
@@ -81,14 +81,21 @@ function dictHack() {
 
 $(document).ready(function () {
     $("#commence").click(function(e) {
-        password = $("#MD5").val()
-        if (!password) {
-            password = md5($("#plainText").val())
-            $("#MD5").val(password)
-        }
-        e.preventDefault()
-        console.log("Got the click")
-        $("#output").text("PASSWORDS N STUFF")
-        dictHack()
+        $.ajax({
+            url: '/passwords.json',
+            dataType: 'application/json',
+            success: function(data) {
+                example_dict = data
+                password = $("#MD5").val()
+                if (!password) {
+                    password = md5($("#plainText").val())
+                    $("#MD5").val(password)
+                }
+                e.preventDefault()
+                console.log("Got the click")
+                $("#output").text("PASSWORDS N STUFF")
+                dictHack()
+            }
+        })
     })
 })
