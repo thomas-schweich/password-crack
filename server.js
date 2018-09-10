@@ -43,6 +43,16 @@ async function getValuesFrom(atom) {
 }
 
 
+async function getAllValues() {
+    result = {}
+    result['SEQUENCES'] = await getSequences()
+    for (let a of ['a1', 'a2', 'a3', 'a4', 'a5']) {
+        result[a] = await getValuesFrom(a)
+    }
+    return result
+}
+
+
 var server = http.createServer(function (req, res) {
     var uri = url.parse(req.url)
 
@@ -60,21 +70,10 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            var result = {}
-            var doneness = 0
-            getSequences().then(function (seqs) {
-                result['SEQUENCES'] = seqs
+            getAllValues.then(function (result) {
+                res.writeHead(200, { 'Content-type': 'application/json' })
+                res.end(JSON.stringify(result), 'utf-8')
             })
-            for (let a of ['a1', 'a2', 'a3', 'a4', 'a5']) {
-                getValuesFrom(a).then(function (results) {
-                    result[a] = results
-                    doneness++
-                })
-            }
-            while(doneness < 5) {}
-            res.writeHead(200, { 'Content-type': 'application/json' })
-            console.log("--SEQUENCES--\n" + seqs.toString())
-            res.end(JSON.stringify(seqs), 'utf-8')
             break
         default:
             res.end('404 not found')
