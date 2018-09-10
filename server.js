@@ -32,15 +32,15 @@ function isNumber(char) {
 
 function decompose(pass, idx) {
     const originalIdx = idx;
-    while(isLetter(pass[idx])) {
+    while(isLetter(pass.charAt(idx))) {
         idx++
     }
     if(idx > originalIdx) return pass.substring(originalIdx, idx)
-    while(isNumber(pass[idx])) {
+    while(isNumber(pass.charAt(idx))) {
         idx++
     }
     if(idx > originalIdx) return pass.substring(originalIdx, idx)
-    while(!isLetter(pass[idx]) && !isNumber(pass[idx])) {
+    while(!isLetter(pass.charAt(idx)) && !isNumber(pass.charAt(idx))) {
         idx++
     }
     if(idx > originalIdx) return pass.substring(originalIdx, idx)
@@ -97,7 +97,7 @@ async function insertPW(pass) {
         i += sub.length
     }
     for (let s of substrs) {
-        if (isLetter(s[0])) {
+        if (isLetter(s.chartAt(0))) {
             insertLetters(s)
         } else if (isNumber(s[0])) {
             insertNumbers(s)
