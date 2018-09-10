@@ -90,9 +90,10 @@ $(document).ready(function () {
             password = md5($("#plainText").val())
             $("#MD5").val(password)
         }
+        $("#output").text("Loading password database...")
         $.getJSON('passwords.json', function(data) {
             console.log("Got the click")
-            $("#output").text("PASSWORDS N STUFF")
+            $("#output").text("Initializing...")
             setTimeout(function() {
                 dictHack(data, password).then(function(result) {
                     if (result) {
