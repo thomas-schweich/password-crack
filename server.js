@@ -37,7 +37,11 @@ async function getValuesFrom(atom) {
         ssl: true,
     });
     await client3.connect()
-    const result = await client3.query('SELECT seq FROM ' + atom, {'rowMode': 'array'})
+    const query = {
+        text: 'SELECT seq FROM ' + atom,
+        rowMode: 'array'
+    } 
+    const result = await client3.query(query)
     await client3.end()
     return result
 }
