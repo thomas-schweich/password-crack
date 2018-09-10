@@ -23,8 +23,9 @@ Reutrns the value if the attack succeeded, null otherwise.
 async function attackWithValues(values) {
     var pw = values.join('')
     console.log("Attacking with: " + pw)
-    await setTimeout(function() {}, 100)
-    $("#output").text(pw)
+    setTimeout(function() {
+        $("#output").text(pw)
+    }, 10)
     if(md5(pw) == password) {
         return pw
     }
