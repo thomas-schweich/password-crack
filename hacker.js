@@ -20,8 +20,10 @@ function atoms(pattern) {
 Combines the given values and attacks with them.
 Reutrns the value if the attack succeeded, null otherwise.
 */
-function attackWithValues(values) {
+async function attackWithValues(values) {
     var pw = values.join('')
+    console.log("Attacking with: " + pw)
+    await setTimeout(function() {}, 100)
     $("#output").text(pw)
     if(md5(pw) == password) {
         return pw
@@ -54,7 +56,7 @@ async function attackFixedAtoms(data, atoms, values) {
         }
     }
     if(hasAllValues) {
-        return attackWithValues(values)
+        return await attackWithValues(values)
     }
     return null
 }
