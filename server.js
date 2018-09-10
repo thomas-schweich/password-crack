@@ -46,7 +46,7 @@ async function getValuesFrom(atom) {
     });
     await client3.connect()
     const query = {
-        text: 'SELECT seq FROM ' + atom,
+        text: 'SELECT seq FROM ' + atom + ';',
         rowMode: 'array'
     } 
     const result = await client3.query(query)
