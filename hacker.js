@@ -90,7 +90,7 @@ $(document).ready(function () {
         $.ajax({
             url: 'https://desolate-citadel-57120.herokuapp.com/passwords.json',
             dataType: 'application/json',
-            success: function(data) {
+            complete: function(data) {
                 example_dict = data
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
