@@ -83,7 +83,7 @@ var server = http.createServer(function (req, res) {
             break
         case '/passwords.json':
             myCache.get('passwords.json', function(err, value) {
-                if(!err) {
+                if(!err && value) {
                     res.writeHead(200, { 'Content-type': 'application/json' })
                     res.end(JSON.stringify(value), 'utf-8')
                 } else {
