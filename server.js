@@ -48,10 +48,11 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            res.writeHead(200, { 'Content-type': 'application/json' })
-            var seqs = getSequences()
-            console.log("--SEQUENCES--\n" + seqs.toString())
-            res.end(JSON.stringify(seqs), 'utf-8')
+            var seqs = getSequences().then(function () {
+                res.writeHead(200, { 'Content-type': 'application/json' })
+                console.log("--SEQUENCES--\n" + seqs.toString())
+                res.end(JSON.stringify(seqs), 'utf-8')
+            })
             break
         default:
             res.end('404 not found')
