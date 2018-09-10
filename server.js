@@ -49,7 +49,7 @@ var server = http.createServer(function (req, res) {
             break
         case '/passwords.json':
             res.writeHead(200, { 'Content-type': 'application/json' })
-            res.end(JSON.stringify(getSequences()), 'utf-8')
+            res.send(JSON.stringify(getSequences()), 'utf-8')
             break
         default:
             res.end('404 not found')
