@@ -67,8 +67,8 @@ function attemptCrack(pattern) {
 Attempts to hack the password. Ruturns the password, or null if it isn't found
 */
 function dictHack() {
-    console.log(example_dict['SEQUENCES'].toString())
-    for(let p of example_dict['SEQUENCES']) {
+    console.log(example_dict.SEQUENCES.toString())
+    for(let p of example_dict.SEQUENCES) {
         console.log("Using pattern: " + p)
         var result = attemptCrack(p)
         if (result) {
