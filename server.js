@@ -26,7 +26,11 @@ async function getSequences() {
         ssl: true,
     });
     await client2.connect()
-    const result = await client2.query('SELECT pat FROM patterns ORDER BY frq DESC;')
+    const query = {
+        text: 'SELECT pat FROM patterns ORDER BY frq DESC;',
+        rowMode: 'array'
+    } 
+    const result = await client2.query(query)
     await client2.end()
     return result
 }
