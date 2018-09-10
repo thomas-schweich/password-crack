@@ -5,6 +5,10 @@ var http = require('http')
 
 const { Client } = require('pg');
 
+const NodeCache = require('node-cache')
+
+const myCache = new NodeCache()
+
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
@@ -78,9 +82,17 @@ var server = http.createServer(function (req, res) {
             sendFile(res, 'hacker.js')
             break
         case '/passwords.json':
-            getAllValues().then(function (result) {
-                res.writeHead(200, { 'Content-type': 'application/json' })
-                res.end(JSON.stringify(result), 'utf-8')
+            myCache.get('passwords.json', function(err, value) {
+                if(!err) {
+                    res.writeHead(200, { 'Content-type': 'application/json' })
+                    res.end(JSON.stringify(value), 'utf-8')
+                } else {
+                    getAllValues().then(function (result) {
+                        myCache.set("passwords.json", result, 10000)
+                        res.writeHead(200, { 'Content-type': 'application/json' })
+                        res.end(JSON.stringify(result), 'utf-8')
+                    })
+                }
             })
             break
         default:
