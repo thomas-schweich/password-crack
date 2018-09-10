@@ -91,7 +91,7 @@ $(document).ready(function () {
             url: 'https://desolate-citadel-57120.herokuapp.com/passwords.json',
             dataType: 'application/json',
             complete: function(data) {
-                example_dict = data
+                example_dict = JSON.parse(data)
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
                 dictHack()
