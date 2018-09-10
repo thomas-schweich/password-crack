@@ -20,18 +20,15 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
     client.end();
 });
 
-function addSequences(seqobj) {
+function getSequences() {
     const client2 = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
     });
-    client2.connect()
-    client2.query('SELECT pat FROM patterns ORDER BY frq DESC;', (err,res) => {
-        // Whats up with this
-        if (err) throw err;
-        seqobj["SEQUENCES"] = res.rows
-        client.end();
-    })
+    await client2.connect()
+    const result = await client2.query('SELECT pat FROM patterns ORDER BY frq DESC;')
+    await client2.end()
+    return result
 }
 
 var server = http.createServer(function (req, res) {
@@ -52,10 +49,9 @@ var server = http.createServer(function (req, res) {
             break
         case '/passwords.json':
             var response = {};
-            addSequences(response)
             console.log("Response sequences: " + response['SEQUENCES'].toString())
             res.writeHead(200, { 'Content-type': 'application/json' })
-            res.end(JSON.stringify(response), 'utf-8')
+            res.end(JSON.stringify(getSequences()), 'utf-8')
             break
         default:
             res.end('404 not found')
