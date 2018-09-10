@@ -93,7 +93,7 @@ $(document).ready(function () {
             complete: function(data) {
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
-                dictHack(data.responseText)
+                dictHack(JSON.parse(data.responseText))
             }
         })
     })
