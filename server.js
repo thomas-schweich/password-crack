@@ -54,7 +54,7 @@ async function insertLetters(s) {
     });
     await letterClient.connect()
     const query = {
-        text: 'INSERT INTO a' + s.length.toString() + ' VALUES ?',
+        text: 'INSERT INTO a' + s.length.toString() + ' VALUES($1)',
         values: [s]
     }
     await letterClient.query(query)
@@ -68,7 +68,7 @@ async function insertNumbers(s) {
     });
     await numberClient.connect()
     const query = {
-        text: 'INSERT INTO n' + s.length.toString() + ' VALUES ?',
+        text: 'INSERT INTO n' + s.length.toString() + ' VALUES($1)',
         values: [s]
     }
     await numberClient.query(query)
@@ -82,7 +82,7 @@ async function insertSpecials(s) {
     });
     await specialClient.connect()
     const query = {
-        text: 'INSERT INTO a' + s.length.toString() + ' VALUES ?',
+        text: 'INSERT INTO a' + s.length.toString() + ' VALUES($1)',
         values: [s]
     }
     await specialClient.query(query)
