@@ -34,16 +34,16 @@ Runs a dictionary attack while holding the given values constant.
 Values which are not to be held constant should be null.
 Returns a string of the correct password if found, or null otherwise.
 */
-function attackFixedAtoms(atoms, values) {
+function attackFixedAtoms(data, atoms, values) {
     var hasAllValues = true;
     for(var i = 0; i < atoms.length; i++) {
         if(values[i] == null) {
             console.log('Got null entry, looking through ' + atoms[i].toString())
             hasAllValues = false;
-            for(let t of example_dict[atoms[i]]) {
+            for(let t of data[atoms[i]].rows) {
                 console.log("Component added: " + t)
                 values[i] = t[0];
-                var outcome = attackFixedAtoms(atoms, values)
+                var outcome = attackFixedAtoms(data, atoms, values)
                 if(outcome) {
                     return outcome
                 }
@@ -59,18 +59,18 @@ function attackFixedAtoms(atoms, values) {
 /*
 Attempts to crack using the given pattern
 */
-function attemptCrack(pattern) {
-    return attackFixedAtoms(atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
+function attemptCrack(data, pattern) {
+    return attackFixedAtoms(data, atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
 }
 
 /*
 Attempts to hack the password. Ruturns the password, or null if it isn't found
 */
-function dictHack() {
-    console.log(example_dict.SEQUENCES.toString())
-    for(let p of example_dict.SEQUENCES) {
+function dictHack(data) {
+    console.log(data['SEQUENCES'].toString())
+    for(let p of data['SEQUENCES'].rows) {
         console.log("Using pattern: " + p)
-        var result = attemptCrack(p)
+        var result = attemptCrack(data, p)
         if (result) {
             return result
         }
@@ -91,10 +91,9 @@ $(document).ready(function () {
             url: 'https://desolate-citadel-57120.herokuapp.com/passwords.json',
             dataType: 'application/json',
             complete: function(data) {
-                example_dict = data
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
-                dictHack()
+                dictHack(data)
             }
         })
     })
