@@ -92,8 +92,10 @@ var server = http.createServer(function (req, res) {
                     console.log('Cache miss')
                     getAllValues().then(function (result) {
                         console.log('Got from database')
-                        myCache.set("passwords.json", result, 10000)
-                        console.log('Addede to cache')
+                        myCache.set("passwords.json", result, function( err, success ) {
+                            console.log('Cache add successful')
+                        })
+                        console.log('Writing to res')
                         res.writeHead(200, { 'Content-type': 'application/json' })
                         res.end(JSON.stringify(result), 'utf-8')
                         console.log('Sent data: ' + result.toString())
