@@ -1,7 +1,10 @@
 <html lang="en">
   <head>
-    <title>CS4241 Assignment 2</title>
-    <meta charset="utf-8">
+		<title>CS4241 Assignment 2</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
+		<script src="hacker.js"></script>
+		<meta charset="utf-8">
 	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
   </head>
@@ -26,28 +29,29 @@
 		<div class="container">
 		<form>
 			Plain Text Password:<br>
-			<input type="text" name="plainText"><br>
+			<input id="plainText" type="text" name="plainText"><br>
 			MD5 Hash:<br>
-			<input type="text" name="MD5"><br>
+			<input id="MD5" type="text" name="MD5"><br>
 			Submit password to database?
 			<input type="checkbox"><br>
-			<input type="Submit" value="Commence Hacking!">
+			<input id="commence" type="Submit" value="Commence Hacking!">
 		</form>
 		</div>
+		<div id="output"></div>
 
   </body>
 </html>
 
 <script type='text/javascript'>
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-       // Typical action to be performed when the document is ready:
-       var obj = JSON.parse(xhttp.responseText)
-       document.getElementById("main").innerHTML = JSON.stringify(obj.main);
-       document.getElementById("dessert").innerHTML = JSON.stringify(obj.dessert);
-    }
-};
-xhttp.open("GET", "/mydata.json", true);
-xhttp.send();
+// var xhttp = new XMLHttpRequest();
+// xhttp.onreadystatechange = function() {
+//     if (this.readyState == 4 && this.status == 200) {
+//        // Typical action to be performed when the document is ready:
+//        var obj = JSON.parse(xhttp.responseText)
+//        document.getElementById("main").innerHTML = JSON.stringify(obj.main);
+//        document.getElementById("dessert").innerHTML = JSON.stringify(obj.dessert);
+//     }
+// };
+// xhttp.open("GET", "/mydata.json", true);
+// xhttp.send();
 </script>

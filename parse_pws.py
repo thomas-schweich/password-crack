@@ -90,7 +90,7 @@ if __name__ == '__main__':
     with open('pwlists/sequences', 'w') as seqfile:
         s = sorted(sequences.items(), key=lambda kv: kv[1], reverse=True)
         for line in s:
-            seqfile.write(line[0] + '\n')
+            seqfile.write('%s,%s\n' % (line[0], line[1]))
 
     for h in files.values():
         h.close()
