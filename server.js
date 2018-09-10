@@ -187,6 +187,7 @@ var server = http.createServer(function (req, res) {
                     insertPW(password).then(function () {
                         console.log('Added password ' + password)
                     })
+                    res.end('Added password ' + password)
                 } else {
                     res.end('Invalid password')
                 }
