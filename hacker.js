@@ -34,7 +34,7 @@ Runs a dictionary attack while holding the given values constant.
 Values which are not to be held constant should be null.
 Returns a string of the correct password if found, or null otherwise.
 */
-function attackFixedAtoms(data, atoms, values) {
+async function attackFixedAtoms(data, atoms, values) {
     var hasAllValues = true;
     for(var i = 0; i < atoms.length; i++) {
         if(values[i] == null) {
@@ -43,6 +43,7 @@ function attackFixedAtoms(data, atoms, values) {
             for(let t of data[atoms[i]].rows) {
                 console.log("Component added: " + t)
                 values[i] = t[0];
+                await setTimeout(function() {}, 10)
                 var outcome = attackFixedAtoms(data, atoms, values)
                 if(outcome) {
                     return outcome
@@ -59,18 +60,18 @@ function attackFixedAtoms(data, atoms, values) {
 /*
 Attempts to crack using the given pattern
 */
-function attemptCrack(data, pattern) {
-    return attackFixedAtoms(data, atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
+async function attemptCrack(data, pattern) {
+    return await attackFixedAtoms(data, atoms(pattern), new Array(Math.ceil(pattern.length / 2)).fill(null))
 }
 
 /*
 Attempts to hack the password. Ruturns the password, or null if it isn't found
 */
-function dictHack(data) {
+async function dictHack(data) {
     console.log(data['SEQUENCES'].toString())
     for(let p of data['SEQUENCES'].rows) {
         console.log("Using pattern: " + p)
-        var result = attemptCrack(data, p[0])
+        var result = await attemptCrack(data, p[0])
         if (result) {
             return result
         }
@@ -93,7 +94,13 @@ $(document).ready(function () {
             complete: function(data) {
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
-                dictHack(JSON.parse(data.responseText))
+                dictHack(JSON.parse(data.responseText)).then(function(result) {
+                    if (result) {
+                        console.log("found password: " + result)
+                    } else {
+                        console.log("Couldn't find password")
+                    }
+                })
             }
         })
     })
