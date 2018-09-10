@@ -44,7 +44,7 @@ async function attackFixedAtoms(data, atoms, values) {
                 for(let t of data[atoms[i]].rows) {
                     console.log("Component added: " + t)
                     values[i] = t[0];
-                    await setTimeout(function() {}, 10)
+                    await setTimeout(function() {}, 100)
                     var outcome = attackFixedAtoms(data, atoms, values)
                     if(outcome) {
                         return outcome
