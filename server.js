@@ -46,7 +46,7 @@ async function getValuesFrom(atom) {
 async function getAllValues() {
     result = {}
     result['SEQUENCES'] = await getSequences()
-    for (let a of ['a1', 'a2', 'a3', 'a4', 'a5']) {
+    for (let a of ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10', 'n1', 'n2', 'n3', 'n4', 'n5','n6','n7', 'n8','n9','n10','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10']) {
         result[a] = await getValuesFrom(a)
     }
     return result
