@@ -20,7 +20,7 @@ client.query('SELECT table_schema,table_name FROM information_schema.tables;', (
     client.end();
 });
 
-function getSequences() {
+async function getSequences() {
     const client2 = new Client({
         connectionString: process.env.DATABASE_URL,
         ssl: true,
