@@ -96,10 +96,11 @@ async function insertPW(pass) {
         substrs.push(sub)
         i += sub.length
     }
+    console.log('Substrs: ' + substrs.toString())
     for (let s of substrs) {
         if (isLetter(s.chartAt(0))) {
             insertLetters(s)
-        } else if (isNumber(s[0])) {
+        } else if (isNumber(s.charAt(0))) {
             insertNumbers(s)
         } else {
             insertSpecials(s)
