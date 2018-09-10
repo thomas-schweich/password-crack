@@ -81,6 +81,7 @@ function dictHack() {
 
 $(document).ready(function () {
     $("#commence").click(function(e) {
+        e.preventDefault()
         $.ajax({
             url: '/passwords.json',
             dataType: 'application/json',
@@ -91,7 +92,6 @@ $(document).ready(function () {
                     password = md5($("#plainText").val())
                     $("#MD5").val(password)
                 }
-                e.preventDefault()
                 console.log("Got the click")
                 $("#output").text("PASSWORDS N STUFF")
                 dictHack()
