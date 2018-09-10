@@ -42,6 +42,9 @@ var server = http.createServer(function (req, res) {
         case '/mydata.json':
             sendJson(res, './mydata.json')
             break
+        case '/hacker.js':
+            sendFile(res, 'hacker.js')
+            break
         case '/passwords.json':
             var response;
             addSequences(response)
