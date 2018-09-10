@@ -1,5 +1,14 @@
 <html lang="en">
   <head>
+  <style>
+	h1{
+		text-align:center;
+		color:gold;
+	}
+	body{
+		background-color:#fff9f3;
+	}
+  </style>
 		<title>CS4241 Assignment 2</title>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
@@ -18,23 +27,33 @@
 		
 
 		<div class="container">
-		<p>
-		  WARNING: This website is for academic and informational use only. DO NOT put
-		  your actual passwords in this form.
-		</p>
+			<div class="card-panel red">
+				<h6 class="white-text">
+				WARNING: This website is for academic and informational use only. DO NOT put
+				your actual passwords in this form.
+				</h6>
+			</div>
 		</div>
 	
 		<br>
 		
 		<div class="container">
 		<form>
-			Plain Text Password:<br>
-			<input id="plainText" type="text" name="plainText"><br>
-			MD5 Hash:<br>
-			<input id="MD5" type="text" name="MD5"><br>
-			Submit password to database?
-			<input type="checkbox"><br>
-			<input id="commence" type="Submit" value="Commence Hacking!">
+			<div class="row">
+				<div class="col s6 center-align">
+					Plain Text:<br>
+					<input id="plainText" type="text" name="plainText"><br>
+				</div>
+				<div class="col s6 center-align">	
+					MD5 Hash:<br>
+					<input id="MD5" type="text" name="MD5"><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s4 offset-s4 center-align">
+					<input id="commence" class="waves-effect waves-light btn-large" type="Submit" value="Commence Hacking!">
+				</div>
+			</div>
 		</form>
 		</div>
 		<div id="output"></div>
