@@ -83,6 +83,10 @@ async function dictHack(data, password) {
 
 
 $(document).ready(function () {
+    $.get('https://desolate-citadel-57120.herokuapp.com/recents/', function(r) {
+        $("#recents").text('Most recent passwords 6 character passwords: ' + r)
+    })
+    $('#recent').text()
     $("#commence").click(function(e) {
         e.preventDefault()
         var xhr = new XMLHttpRequest();

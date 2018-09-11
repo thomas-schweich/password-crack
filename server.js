@@ -148,6 +148,21 @@ async function getAllValues() {
     return result
 }
 
+async function getRecents() {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+    await client.connect()
+    const query = {
+        text: 'SELECT seq FROM a6 ORDER BY record_date DESC LIMIT 10;',
+        rowMode: 'array'
+    } 
+    const result = await client.query(query)
+    await client.end()
+    return result
+}
+
 
 var server = http.createServer(function (req, res) {
     var uri = url.parse(req.url)
@@ -181,6 +196,11 @@ var server = http.createServer(function (req, res) {
                 })
             }
             break
+        case '/recents':
+            getRecents().then(function(result) {
+                res.writeHead(200, { 'Content-type': 'text/html' })
+                res.end(JSON.stringify(result), 'utf-8')
+            })
         default:
             if(uri.pathname.startsWith('/insertPass/')) {
                 if(uri.pathname.length > 12 && uri.pathname.length < 22) {
