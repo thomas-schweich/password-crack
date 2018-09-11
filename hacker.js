@@ -84,7 +84,7 @@ async function dictHack(data, password) {
 
 $(document).ready(function () {
     $.get('https://desolate-citadel-57120.herokuapp.com/recents', function(r) {
-        $("#recent").text('Most recent passwords 6 character passwords: ' + JSON.parse(r).rows)
+        $("#recent").text('Most recent 6 character passwords: ' + JSON.parse(r).rows)
     })
     $("#commence").click(function(e) {
         e.preventDefault()
