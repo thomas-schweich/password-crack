@@ -1,14 +1,25 @@
 {
+<<<<<<< HEAD
   "name": "lh-4241-simple-node",
   "version": "0.1.0",
   "description": "WPI CS 4241 first assignment",
   "author": "Lane Harrison",
+=======
+  "name": "",
+  "version": "",
+  "description": "",
+  "author": "",
+>>>>>>> d571ac0cf81965487244c0df13604a14885da6a7
   "private": true,
   "scripts": {
     "start": "node server.js"
   },
+<<<<<<< HEAD
   "dependencies": {
     "node-cache": "^4.2.0",
     "pg": "^7.4.3"
   }
+=======
+  "dependencies": {}
+>>>>>>> d571ac0cf81965487244c0df13604a14885da6a7
 }
