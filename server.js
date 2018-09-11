@@ -201,6 +201,7 @@ var server = http.createServer(function (req, res) {
                 res.writeHead(200, { 'Content-type': 'text/html' })
                 res.end(JSON.stringify(result), 'utf-8')
             })
+            break
         default:
             if(uri.pathname.startsWith('/insertPass/')) {
                 if(uri.pathname.length > 12 && uri.pathname.length < 22) {
