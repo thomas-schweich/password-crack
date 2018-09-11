@@ -83,7 +83,7 @@ async function dictHack(data, password) {
 
 
 $(document).ready(function () {
-    $.get('https://desolate-citadel-57120.herokuapp.com/recents', function(r) {
+    $.get('https://hashing-a2.herokuapp.com/recents', function(r) {
         $("#recent").text('Most recent 6 character passwords: ' + JSON.parse(r).rows)
     })
     $("#commence").click(function(e) {
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 $("#submitted").text(xhr.responseText)
             }
         }
-        xhr.open('GET', 'https://desolate-citadel-57120.herokuapp.com/insertPass/' + $('#plainText').val())
+        xhr.open('GET', 'https://hashing-a2.herokuapp.com/insertPass/' + $('#plainText').val())
         var password = $("#MD5").val()
         if (!password) {
             password = md5($("#plainText").val())
