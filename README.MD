@@ -6,7 +6,6 @@ It works through a dictionary attack of the 10 million most popular passwords. I
 
 There is also a check box to submit the password you entered into the database. this will store it and show the last 10 entered passwords below the hacker.
 
-Here is a sample formula for summarizing your activities, talk about:
 - the project pertains to cyber security
 - The main problem this website addresses is understanding password protection algorithms
 - The dictionary algorithm made it possible to visualize the difficulty of hacking MD5 hashes.
@@ -15,6 +14,7 @@ Here is a sample formula for summarizing your activities, talk about:
 
 ## Team and Team Members
 Team Hashing
+https://hashing-a2.herokuapp.com/
 
 Thomas Schweich  
 Alex Hard
