@@ -89,9 +89,9 @@ $(document).ready(function () {
     $("#commence").click(function(e) {
         e.preventDefault()
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function (response) {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
-                $("#submitted").text(response.rows)
+                $("#submitted").text(JSON.parse(xhr.responseText).rows.toString())
             }
         }
         xhr.open('GET', 'https://desolate-citadel-57120.herokuapp.com/insertPass/' + $('#plainText').val())
