@@ -91,6 +91,7 @@ $(document).ready(function () {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
+                console.log(xhr.responseText)
                 $("#submitted").text(xhr.response['JSON'].rows.toString())
             }
         }
