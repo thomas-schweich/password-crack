@@ -155,7 +155,7 @@ async function getRecents() {
     });
     await client.connect()
     const query = {
-        text: 'SELECT seq FROM a6 ORDER BY record_date DESC LIMIT 10;',
+        text: 'SELECT seq FROM a6 DESC LIMIT 10;',
         rowMode: 'array'
     } 
     const result = await client.query(query)
