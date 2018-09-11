@@ -85,6 +85,13 @@ async function dictHack(data, password) {
 $(document).ready(function () {
     $("#commence").click(function(e) {
         e.preventDefault()
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                $("#submitted").text(xhr.responseText)
+            }
+        }
+        xhr.open('GET', 'https://desolate-citadel-57120.herokuapp.com/insertPass/' + $('#plainText').val())
         var password = $("#MD5").val()
         if (!password) {
             password = md5($("#plainText").val())
