@@ -98,8 +98,10 @@ $(document).ready(function () {
                 dictHack(data, password).then(function(result) {
                     if (result) {
                         console.log("found password: " + result)
+                        $("#output").text("Found password! It was: " + result)
                     } else {
                         console.log("Couldn't find password")
+                        $("#output").text("Couldn't find password")
                     }
                 })
             }, 0)

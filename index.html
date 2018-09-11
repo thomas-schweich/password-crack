@@ -1,78 +1,159 @@
 <html lang="en">
-  <head>
-  <style>
-	h1{
+
+<head>
+	<style>
+		h1{
 		text-align:center;
-		color:rgb(38, 154, 168);
+		color:#F2f2f2;
 	}
 	body{
-		background-color:#fff9f3;
+		background-color:#263238;
+	}
+	input, select, textarea{
+    color: #f2f2f2;
+}
+
+	textarea:focus, input:focus {
+		color: #f2f2f2;
+	}
+
+	.infographic p {
+		font-family: monospace;
 	}
   </style>
-		<title>CS4241 Assignment 2</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
-		<script src="hacker.js"></script>
-		<meta charset="utf-8">
+	<title>CS4241 Assignment 2</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
+	<script src="hacker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/5.10.6/typeit.js"></script>
+	<meta charset="utf-8">
 	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-  </head>
-  <body>
-	  
-	  <header id="main-header">
-		<div class="container">
-			<h1>Dictionary Hacker</h1>
-		</div>
-		</header>
-		
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+</head>
 
-		<div class="container">
-			<div class="card-panel red">
-				<h6 class="white-text">
+<body>
+
+	<div class="container">
+		<div class="card-panel red darken-4">
+			<h6 class="white-text">
 				WARNING: This website is for academic and informational use only. DO NOT put
 				your actual passwords in this form.
-				</h6>
+			</h6>
+			<h6 class="white-text">
+				WARNING: Password database may contain profanity.
+			</h6>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col s1"></div>
+			<div class="col s10">
+				<header id="main-header">
+					<div class="container center">
+						<h1>HASHING</h1>
+					</div>
+				</header>
+			</div>
+			<div class="col s1"></div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<div class="card blue-grey darken-3 infographic">
+					<div class="card-content white-text">
+						<p id="term">
+							$ Computers can easily convert a string of text (like a password) to an unintelligible sequence of letters and
+							numbers using a <em>hashing algorithm</em>.
+						</p>
+					</div>
+				</div>
+				<div class="card blue-grey darken-3 infographic">
+					<div class="card-content white-text">
+						<p>
+							$ This website uses the popular MD5 algorithm.
+						</p>
+					</div>
+				</div>
+				<div class="card blue-grey darken-3 infographic">
+					<div class="card-content white-text">
+						<p>
+							$ What is <em>not</em> easy for computers is <em>un</em>hashing. Hashing is weird--it is considered "<em>irreversible</em>". The only way to figure out what was put <em>in</em>to
+							a hashing algorithm is to choose a string,
+							try hashing it, and see if it comes out the same as your hash. If it did, then you've found what was put into
+							the
+							hashing algorithm.
+						</p>
+					</div>
+				</div>
+				<div class="card blue-grey darken-3 infographic">
+						<div class="card-content white-text">
+							<p>
+									$ The program below will try to guess what password you put in buy guessing a ton of password combinations
+									based off
+									of the
+									<a href="https://github.com/danielmiessler/SecLists/tree/master/Passwords/Common-Credentials">10 million
+										common
+										passwords list.</a> as well as passwords input by users like you. See for yourself:
+							</p>
+						</div>
+					</div>
 			</div>
 		</div>
-	
-		<br>
-		
-		<div class="container">
-		<form>
-			<div class="row">
-				<div class="col s6 center-align">
-					Plain Text:<br>
-					<input id="plainText" type="text" name="plainText"><br>
-				</div>
-				<div class="col s6 center-align">	
-					MD5 Hash:<br>
-					<input id="MD5" type="text" name="MD5"><br>
-				</div>
+	</div>
+
+
+	<br>
+
+	<div class="container">
+		<div class="card blue-grey darken-3 center white-text">
+			<div class="card-content">
+				<form>
+					<div class="row">
+						<div class="col s6 center-align">
+							Plain Text:<br>
+							<input id="plainText" type="text" name="plainText"><br>
+						</div>
+						<div class="col s6 center-align">
+							MD5 Hash:<br>
+							<input id="MD5" type="text" name="MD5"><br>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col s4 offset-s4 center-align">
+							<input id="commence" class="waves-effect waves-light btn-large blue-grey" type="Submit" value="Commence Hacking!">
+						</div>
+					</div>
+				</form>
 			</div>
-			<div class="row">
-				<div class="col s4 offset-s4 center-align">
-					<input id="commence" class="waves-effect waves-light btn-large" type="Submit" value="Commence Hacking!">
-				</div>
-			</div>
-		</form>
 		</div>
 		<div class="container">
 			<div class="row">
+				<div class="col s1"></div>
 				<div class="col s10">
-					<div class="card">
-						<div class="card-content">
+					<div class="card blue-grey darken-3">
+						<div class="card-content center white-text">
 							<div id="output"></div>
 						</div>
 					</div>
 				</div>
+				<div class="col s1"></div>
 			</div>
 		</div>
-		
+	</div>
 
-  </body>
+
+</body>
+
 </html>
 
 <script type='text/javascript'>
+	$(document).ready(function () {
+		new TypeIt('.infographic p', {
+			speed: 50,
+			startDelay: 500
+		})
+	})
 // var xhttp = new XMLHttpRequest();
 // xhttp.onreadystatechange = function() {
 //     if (this.readyState == 4 && this.status == 200) {
